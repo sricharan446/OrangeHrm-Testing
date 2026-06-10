@@ -12,8 +12,8 @@
     "report": "playwright show-report"
   },
   "devDependencies": {
-    "@playwright/test": "^1.52.0",
-    "@types/node": "^22.15.0",
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.1",
     "typescript": "^5.8.0"
   }
 }

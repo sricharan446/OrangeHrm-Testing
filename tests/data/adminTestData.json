@@ -1,0 +1,45 @@
+{
+  "selectors": {
+    "adminSidebarLink": "a:has-text('Admin')",
+    "topbarHeader": "h6.oxd-topbar-header-breadcrumb-module",
+    "searchUsernameInput": "div.oxd-input-group:has(label:has-text('Username')) input",
+    "searchUserRoleDropdown": "div.oxd-input-group:has(label:has-text('User Role')) div.oxd-select-text",
+    "searchEmployeeNameInput": "div.oxd-input-group:has(label:has-text('Employee Name')) input",
+    "searchStatusDropdown": "div.oxd-input-group:has(label:has-text('Status')) div.oxd-select-text",
+    "searchSubmitBtn": "button[type='submit']",
+    "searchResetBtn": "button.oxd-button--ghost:has-text('Reset')",
+    "addButton": "button.oxd-button:has-text('Add')",
+    "cancelButton": "button.oxd-button:has-text('Cancel')",
+    "tableRow": ".oxd-table-card",
+    "tableHeader": ".oxd-table-header",
+    "noRecordsFoundMessage": "text=No Records Found",
+    "tabs": {
+      "userManagement": "span.oxd-topbar-body-nav-tab-item:has-text('User Management')",
+      "job": "span.oxd-topbar-body-nav-tab-item:has-text('Job')",
+      "organization": "span.oxd-topbar-body-nav-tab-item:has-text('Organization')",
+      "qualifications": "span.oxd-topbar-body-nav-tab-item:has-text('Qualifications')",
+      "nationalities": "a.oxd-topbar-body-nav-tab-item:has-text('Nationalities')",
+      "corporateBranding": "a.oxd-topbar-body-nav-tab-item:has-text('Corporate Branding')",
+      "configuration": "span.oxd-topbar-body-nav-tab-item:has-text('Configuration')"
+    },
+    "jobSubmenus": {
+      "jobTitles": "a.oxd-topbar-body-nav-tab-link:has-text('Job Titles')"
+    },
+    "addUserForm": {
+      "userRoleDropdown": "div.oxd-input-group:has(label:has-text('User Role')) div.oxd-select-text",
+      "employeeNameInput": "div.oxd-input-group:has(label:has-text('Employee Name')) input",
+      "statusDropdown": "div.oxd-input-group:has(label:has-text('Status')) div.oxd-select-text",
+      "usernameInput": "div.oxd-input-group:has(label:has-text('Username')) input",
+      "passwordInput": "div.oxd-input-group:has(label:has-text('Password')) input",
+      "confirmPasswordInput": "div.oxd-input-group:has(label:has-text('Confirm Password')) input"
+    }
+  },
+  "expectedData": {
+    "headerText": "Admin",
+    "tableHeaders": ["Username", "User Role", "Employee Name", "Status", "Actions"],
+    "validSearchUser": "Admin",
+    "invalidSearchUser": "zzz_nonexistent",
+    "jobTitlesUrlPart": "admin/viewJobTitleList",
+    "systemUsersUrlPart": "admin/viewSystemUsers"
+  }
+}
