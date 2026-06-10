@@ -1,0 +1,45 @@
+{
+  "validLogin": {
+    "username": "Admin",
+    "password": "admin123",
+    "description": "Valid admin credentials"
+  },
+  "invalidLogins": [
+    {
+      "username": "InvalidUser",
+      "password": "admin123",
+      "description": "Invalid username",
+      "expectedError": "Invalid credentials"
+    },
+    {
+      "username": "Admin",
+      "password": "wrongpassword",
+      "description": "Invalid password",
+      "expectedError": "Invalid credentials"
+    },
+    {
+      "username": "InvalidUser",
+      "password": "wrongpassword",
+      "description": "Invalid credentials",
+      "expectedError": "Invalid credentials"
+    },
+    {
+      "username": "",
+      "password": "admin123",
+      "description": "Empty username",
+      "expectedError": "Required"
+    },
+    {
+      "username": "Admin",
+      "password": "",
+      "description": "Empty password",
+      "expectedError": "Required"
+    },
+    {
+      "username": "",
+      "password": "",
+      "description": "Empty credentials",
+      "expectedError": "Required"
+    }
+  ]
+}
