@@ -1,0 +1,102 @@
+{
+  "loginCases": [
+    { "username": "admin", "password": "admin123", "expectedUrlPart": "dashboard", "expectedTitle": "Dashboard" }
+  ],
+  "negativeLoginCases": [
+    {
+      "description": "Invalid username + valid password",
+      "username": "InvalidUser",
+      "password": "admin123",
+      "expectedError": "Invalid credentials",
+      "expectedUrlPart": "auth/login",
+      "requiresRequiredField": false
+    },
+    {
+      "description": "Valid username + invalid password",
+      "username": "admin",
+      "password": "WrongPassword",
+      "expectedError": "Invalid credentials",
+      "expectedUrlPart": "auth/login",
+      "requiresRequiredField": false
+    },
+    {
+      "description": "Both invalid",
+      "username": "WrongUser",
+      "password": "WrongPassword",
+      "expectedError": "Invalid credentials",
+      "expectedUrlPart": "auth/login",
+      "requiresRequiredField": false
+    },
+    {
+      "description": "Empty username + valid password",
+      "username": "",
+      "password": "admin123",
+      "expectedError": "Required",
+      "expectedUrlPart": "auth/login",
+      "requiresRequiredField": true,
+      "emptyField": "username"
+    },
+    {
+      "description": "Valid username + empty password",
+      "username": "admin",
+      "password": "",
+      "expectedError": "Required",
+      "expectedUrlPart": "auth/login",
+      "requiresRequiredField": true,
+      "emptyField": "password"
+    },
+    {
+      "description": "Both fields empty",
+      "username": "",
+      "password": "",
+      "expectedError": "Required",
+      "expectedUrlPart": "auth/login",
+      "requiresRequiredField": true,
+      "emptyField": "both"
+    },
+    {
+      "description": "SQL injection in username",
+      "username": "' OR '1'='1",
+      "password": "admin123",
+      "expectedError": "Invalid credentials",
+      "expectedUrlPart": "auth/login",
+      "requiresRequiredField": false
+    },
+    {
+      "description": "XSS attempt in username",
+      "username": "<script>alert(1)</script>",
+      "password": "admin123",
+      "expectedError": "Invalid credentials",
+      "expectedUrlPart": "auth/login",
+      "requiresRequiredField": false
+    },
+    {
+      "description": "Special characters in username",
+      "username": "!@#$%^&*",
+      "password": "admin123",
+      "expectedError": "Invalid credentials",
+      "expectedUrlPart": "auth/login",
+      "requiresRequiredField": false
+    },
+    {
+      "description": "Extremely long input in username",
+      "username": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "password": "admin123",
+      "expectedError": "Invalid credentials",
+      "expectedUrlPart": "auth/login",
+      "requiresRequiredField": false
+    }
+  ],
+  "uiElements": {
+    "usernameInput": { "selector": "input[name='username']", "expectedType": "input", "expectedPlaceholder": "Username" },
+    "passwordInput": { "selector": "input[name='password']", "expectedType": "input", "expectedPlaceholder": "Password" },
+    "loginButton": { "selector": "button[type='submit']", "expectedText": "Login", "expectedType": "button" },
+    "forgotPasswordLink": { "selector": "text=Forgot your password?", "expectedText": "Forgot your password?" },
+    "pageTitle": { "selector": "h5", "expectedText": "Login" }
+  },
+  "forgotPasswordExpected": {
+    "expectedUrl": "/requestPasswordResetCode",
+    "expectedHeading": "Reset Password"
+  }
+}
+
