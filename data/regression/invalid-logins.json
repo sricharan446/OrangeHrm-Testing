@@ -1,9 +1,4 @@
 {
-  "validLogin": {
-    "username": "Admin",
-    "password": "admin123",
-    "description": "Valid admin credentials"
-  },
   "invalidLogins": [
     {
       "username": "InvalidUser",

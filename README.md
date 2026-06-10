@@ -1,169 +1,149 @@
-# OrangeHRM Live — Playwright Automation Framework
+# OrangeHRM Testing — Playwright + TypeScript
 
-Playwright TypeScript automation framework using the **Page Object Model (POM)** for [OrangeHRM Live Demo](https://opensource-demo.orangehrmlive.com/).
+Playwright automation framework using **Page Object Model (POM)** for [OrangeHRM Live Demo](https://opensource-demo.orangehrmlive.com/).
 
-## Team Responsibilities
+**Repository:** https://github.com/sricharan446/OrangeHrm-Testing
 
-| Member | Role | Tag | Scope |
-|--------|------|-----|-------|
-| Member 1 | Smoke Testing | `@smoke` | Critical path — app is up and login works |
-| Member 2 | Sanity Testing | `@sanity` | Core positive flows — login, dashboard, logout |
-| Member 3 | Regression Testing | `@regression` | Full coverage — positives, negatives, auth, navigation |
+---
 
-## Project Overview
+## Team Ownership
 
-- **Target App:** OrangeHRM OS 5.8 (Live Demo)
-- **Base URL:** `https://opensource-demo.orangehrmlive.com/`
-- **Credentials:** `Admin` / `admin123`
-- **Browser:** Chromium
-- **Pattern:** Page Object Model with data-driven negative tests
+| Member | Role | Branch | Test Folder | Run Command |
+|--------|------|--------|-------------|-------------|
+| **Member 1** | Smoke Testing | `smoke-testing` | `tests/smoke/` | `npm run test:smoke` |
+| **Member 2** | Sanity Testing | `sanity-testing` | `tests/sanity/` | `npm run test:sanity` |
+| **Member 3 (You)** | Regression Testing | `regression-testing` | `tests/regression/` | `npm run test:regression` |
+
+### Smoke Testing Owner — Member 1
+- **Goal:** Confirm the app is up and login works.
+- **Tests:** 1 critical-path login test.
+- **Branch:** `smoke-testing`
+
+### Sanity Testing Owner — Member 2
+- **Goal:** Verify core positive flows after login.
+- **Tests:** Login routing, logout, dashboard UI (header, sidebar, widgets, profile).
+- **Branch:** `sanity-testing`
+
+### Regression Testing Owner — Member 3 (You)
+- **Goal:** Full coverage of login negatives, authentication security, navigation, and edge cases.
+- **Tests:** 10 regression tests + data-driven invalid logins.
+- **Branch:** `regression-testing`
+- **Data:** `data/regression/invalid-logins.json`
+
+---
 
 ## Folder Structure
 
 ```
-Orangehrmlive/
+OrangeHrm-Testing/
 ├── config/
-│   └── config.ts              # Base URL, credentials, paths, timeouts
+│   └── config.ts                 # Shared: base URL, credentials, timeouts
 ├── data/
-│   └── data.json              # Data-driven login test data
-├── pages/
-│   ├── LoginPage.ts           # Login, logout, forgot password POM
-│   └── DashboardPage.ts       # Dashboard, sidebar, widgets POM
+│   ├── shared/
+│   │   └── valid-login.json      # Shared valid credentials (smoke/sanity)
+│   └── regression/
+│       └── invalid-logins.json   # Regression-only negative test data
+├── pages/                        # Shared Page Objects
+│   ├── LoginPage.ts
+│   └── DashboardPage.ts
 ├── tests/
-│   ├── login.spec.ts          # Login positive & negative tests
-│   └── dashboard.spec.ts      # Dashboard positive & negative tests
-├── utils/
-│   ├── helper.ts              # Navigation & test data utilities
-│   └── auth.helper.ts         # Reusable auth session setup
-├── playwright.config.ts       # Playwright config (HTML report, traces)
+│   ├── smoke/                    # Member 1 — isolated smoke suite
+│   │   └── login.smoke.spec.ts
+│   ├── sanity/                   # Member 2 — isolated sanity suite
+│   │   ├── login.sanity.spec.ts
+│   │   └── dashboard.sanity.spec.ts
+│   └── regression/                 # Member 3 — isolated regression suite
+│       ├── login.regression.spec.ts
+│       └── dashboard.regression.spec.ts
+├── utils/                        # Shared utilities
+│   ├── helper.ts
+│   └── auth.helper.ts
+├── playwright.config.ts
+├── COLLABORATION.md              # Branching strategy & Git workflow
 ├── package.json
-├── run-tests.bat              # Windows batch runner
 └── README.md
 ```
 
+---
+
 ## Prerequisites
 
-```powershell
-cd C:\Projects_2026\Orangehrmlive
+```cmd
 npm install
 npx.cmd playwright install chromium
 ```
 
-## How to Run Tests
+---
 
-> **PowerShell note:** Use `npm.cmd` or `npx.cmd` if script execution policy blocks `.ps1` files.
+## How to Run Each Suite
+
+### Smoke (Member 1)
+
+```cmd
+npm run test:smoke
+```
+
+### Sanity (Member 2)
+
+```cmd
+npm run test:sanity
+```
+
+### Regression (Member 3)
+
+```cmd
+npm run test:regression
+```
 
 ### All Tests
 
-```powershell
-npm.cmd test
-# or
-npx.cmd playwright test
-# or
-.\run-tests.bat
+```cmd
+npm test
 ```
 
-### Smoke Tests (Member 1)
+### Generate HTML Report
 
-```powershell
-npm.cmd run test:smoke
-# or
-npx.cmd playwright test --grep @smoke
-# or
-.\run-tests.bat smoke
-```
-
-### Sanity Tests (Member 2)
-
-```powershell
-npm.cmd run test:sanity
-# or
-npx.cmd playwright test --grep @sanity
-# or
-.\run-tests.bat sanity
-```
-
-### Regression Tests (Member 3)
-
-```powershell
-npm.cmd run test:regression
-# or
-npx.cmd playwright test --grep @regression
-# or
-.\run-tests.bat regression
-```
-
-### Run by Module
-
-```powershell
-npm.cmd run test:login
-npm.cmd run test:dashboard
-```
-
-### Headed / UI Mode
-
-```powershell
-npm.cmd run test:headed
-npm.cmd run test:ui
-```
-
-## How to Generate Reports
-
-After any test run:
-
-```powershell
-npm.cmd run report
-# or
-npx.cmd playwright show-report
+```cmd
+npm run report
 ```
 
 | Artifact | Path |
 |----------|------|
 | HTML Report | `playwright-report/index.html` |
-| Failure Screenshots | `test-results/<test-name>/test-failed-1.png` |
-| Failure Traces | `test-results/<test-name>/trace.zip` |
+| Screenshots (on failure) | `test-results/<test-name>/test-failed-1.png` |
+| Traces (on failure) | `test-results/<test-name>/trace.zip` |
 
-View a trace file:
+---
 
-```powershell
-npx.cmd playwright show-trace test-results\<folder>\trace.zip
-```
+## Regression Test Summary (Member 3)
 
-## Test Tag Reference
+| Category | Count | Module |
+|----------|-------|--------|
+| Login negative (data-driven) | 6 | Login |
+| Forgot password flow | 1 | Login / Auth |
+| Admin sidebar navigation | 1 | Dashboard / Navigation |
+| Unauthenticated access | 1 | Authentication |
+| Post-logout access | 1 | Logout / Auth |
+| Browser back after logout | 1 | Authentication |
+| **Total regression** | **11** | |
 
-### @smoke (1 test)
-- Valid login with Admin credentials
+---
 
-### @sanity (8 tests)
-- Valid login, dashboard load, URL verification, logout
-- Dashboard header, sidebar, widgets, profile menu
+## Collaboration
 
-### @regression (19 tests — full suite)
-- All smoke + sanity tests
-- Forgot password flow
-- 6 data-driven negative login tests
-- Sidebar Admin navigation
-- 3 authentication/security negative tests
+See **[COLLABORATION.md](COLLABORATION.md)** for:
+- Git branching strategy
+- Daily workflow
+- Conflict resolution
+- Pull Request process
 
-## Publish to GitHub
-
-See **[GITHUB_SETUP.md](GITHUB_SETUP.md)** for step-by-step instructions to push this project to:
-
-**https://github.com/Madhavsrivastha12/orangehrmlive-automation**
-
-Quick start (after installing Git):
-
-```cmd
-cd C:\Projects_2026\Orangehrmlive
-scripts\push-to-github.bat
-```
+---
 
 ## Configuration
 
-Key settings in `playwright.config.ts`:
-
-- HTML reporter enabled
-- Screenshot on failure
-- Trace retained on failure
-- 1 retry for demo-site flakiness
-- Single worker (sequential execution)
+- **Base URL:** `https://opensource-demo.orangehrmlive.com/`
+- **Credentials:** `Admin` / `admin123`
+- **Browser:** Chromium
+- **Retries:** 1 (demo-site flakiness)
+- **Screenshot:** on failure
+- **Trace:** retained on failure

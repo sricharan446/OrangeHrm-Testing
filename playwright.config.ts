@@ -1,11 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Playwright configuration for OrangeHRM Live automation.
- * - HTML report on every run
- * - Screenshot + trace captured on failure
- * - 1 retry to handle demo-site flakiness
- * - Chromium only (as required)
+ * OrangeHRM Testing — Playwright configuration
+ * Repository: https://github.com/sricharan446/OrangeHrm-Testing
+ *
+ * Test suites are isolated by folder:
+ *   tests/smoke/       → Member 1 (smoke-testing branch)
+ *   tests/sanity/      → Member 2 (sanity-testing branch)
+ *   tests/regression/  → Member 3 (regression-testing branch)
  */
 export default defineConfig({
   testDir: './tests',

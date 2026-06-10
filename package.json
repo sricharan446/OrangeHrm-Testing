@@ -1,14 +1,12 @@
 {
-  "name": "orangehrmlive-automation",
+  "name": "orangehrm-testing",
   "version": "1.0.0",
-  "description": "Playwright TypeScript POM framework for OrangeHRM Live — 3-member QA team",
+  "description": "OrangeHRM Playwright TypeScript POM framework — 3-member QA team",
   "scripts": {
     "test": "playwright test",
-    "test:smoke": "playwright test --grep @smoke",
-    "test:sanity": "playwright test --grep @sanity",
-    "test:regression": "playwright test --grep @regression",
-    "test:login": "playwright test tests/login.spec.ts",
-    "test:dashboard": "playwright test tests/dashboard.spec.ts",
+    "test:smoke": "playwright test tests/smoke",
+    "test:sanity": "playwright test tests/sanity",
+    "test:regression": "playwright test tests/regression",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "report": "playwright show-report"

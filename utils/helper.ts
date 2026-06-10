@@ -1,6 +1,7 @@
 import { Page, expect } from '@playwright/test';
 import { config } from '../config/config';
-import testData from '../data/data.json';
+import * as fs from 'fs';
+import * as path from 'path';
 
 /** Navigate to the login page and wait for the form to be ready. */
 export async function navigateToLogin(page: Page): Promise<void> {
@@ -34,7 +35,14 @@ export async function expectUrlContains(page: Page, fragment: string): Promise<v
   await expect(page).toHaveURL(new RegExp(fragment));
 }
 
-/** Load JSON test data for data-driven scenarios. */
-export function loadTestData<T>(): T {
-  return testData as T;
+/** Load shared test data (smoke / sanity). */
+export function loadSharedData<T>(relativePath: string): T {
+  const filePath = path.join(__dirname, '..', 'data', relativePath);
+  return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
+}
+
+/** Load regression-only test data (Member 3). */
+export function loadRegressionData<T>(relativePath: string): T {
+  const filePath = path.join(__dirname, '..', 'data', relativePath);
+  return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
 }
